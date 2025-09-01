@@ -1,13 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, Image, Button, Touchable, TouchableOpacity } from 'react-native';
 import { useState, useEffect } from "react";
+import { styles } from "./styles.ts";
+import { Event } from "../../components/Event"
 
 export default function App() {
   const [valorGato, setValorGato] = useState<number>(0);
   const [salvarGato, setSalvar] = useState<boolean>(false);
   const [gato, setGato] = useState<boolean>(true);
   const [big, bang] = useState<boolean>(false);
-  const imagens = [require("./gato.jpeg"), require("./explosion-cats.jpeg"), require("./salvarGato.jpg"), require("./bigBang.jpg")];
+  const imagens = [require("../../img/gato.jpeg"), require("../../img/explosion-cats.jpeg"), require("../../img/salvarGato.jpg"), require("../../img/bigBang.jpg")];
+  // const styles = getStyles(undefined)
 
   return (
     <View style={styles.container}>
@@ -17,6 +20,7 @@ export default function App() {
       {big && <View>
         <Text style={styles.text}>Voltou demais D:</Text>
         <Text style={styles.text}>Reajustando...</Text>
+        <Event></Event>
       </View>}
 
       {!big && <View>
@@ -42,10 +46,11 @@ export default function App() {
             setValorGato(3)
             setGato(true)
             setSalvar(false)
-            setInterval(()=>{
+            const intervalo = setTimeout(()=>{
+              // console.log("começo")
               bang(false)
               setValorGato(0);
-            },3000)
+            },3000);
           }}>
             <Text style={styles.text}>Volte no tempo</Text>
           </TouchableOpacity>
@@ -54,34 +59,6 @@ export default function App() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#333',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    color: "#999",
-    fontSize: 25,
-    textAlign: "center"
-  },
-  input: {
-    backgroundColor: "#999",
-    width: 200,
-    borderRadius: 20
-  },
-  Button: {
-    width: "100%",
-    backgroundColor: "#fff"
-  },
-  Imagens: {
-    width: 200,
-    height: 200,
-    borderRadius: 20
-  }
-});
 
 // View == div && section
 //Button == button
