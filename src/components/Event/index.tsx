@@ -1,11 +1,20 @@
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import { styles } from "./styles";
+import React from "react";
 
-export function Event() {
+type Props = {
+    tela: boolean,
+    mudarTela: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export function Event({tela, mudarTela}:Props) {
     return(
         <View>
-            <TouchableOpacity style={styles.TouchableOpacity}>
-                <Text style={styles.text}>botao que não faz nada</Text>
+            <TouchableOpacity style={styles.TouchableOpacity} onPress={() => {
+                mudarTela(false)
+                console.log("apertou")
+            }}>
+                <Text style={styles.text}>NÃO TOQUE</Text>
             </TouchableOpacity>
         </View>
     )

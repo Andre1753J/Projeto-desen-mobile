@@ -9,8 +9,13 @@ export default function App() {
   const [salvarGato, setSalvar] = useState<boolean>(false);
   const [gato, setGato] = useState<boolean>(true);
   const [big, bang] = useState<boolean>(false);
-  const imagens = [require("../../img/gato.jpeg"), require("../../img/explosion-cats.jpeg"), require("../../img/salvarGato.jpg"), require("../../img/bigBang.jpg")];
-  // const styles = getStyles(undefined)
+  const [mensagem, setMensagem] = useState<string>("Volte no tempo")
+  const imagens = [require("../../img/gato.jpeg"), require("../../img/explosion-cats.jpeg"),
+  require("../../img/salvarGato.jpg"), require("../../img/bigBangGato.jpg"),
+  require("../../img/bobCaverna.png")
+  ];
+  const [toque, setToque] = useState<boolean>(true)
+  // const styles = getStyle
 
   return (
     <View style={styles.container}>
@@ -20,7 +25,7 @@ export default function App() {
       {big && <View>
         <Text style={styles.text}>Voltou demais D:</Text>
         <Text style={styles.text}>Reajustando...</Text>
-        <Event></Event>
+        <Event tela={toque} mudarTela={setToque}></Event>
       </View>}
 
       {!big && <View>
@@ -44,15 +49,25 @@ export default function App() {
           <TouchableOpacity style={styles.Button} onPress={() => {
             bang(true)
             setValorGato(3)
-            setGato(true)
-            setSalvar(false)
-            const intervalo = setTimeout(()=>{
+            const intervalo = setTimeout(() => {
               // console.log("começo")
               bang(false)
-              setValorGato(0);
-            },3000);
+              const random = Math.round(Math.random()*10);
+              console.log(random)
+              console.log(toque)
+              if (random >= 1 && toque) {
+                setMensagem("Volte no tempo")
+                setValorGato(0);
+                setGato(true)
+                setSalvar(false)
+              } else {
+                setMensagem("Volte pro tempo certo")
+                setToque(true)
+                setValorGato(4)
+              }
+            }, 3000);
           }}>
-            <Text style={styles.text}>Volte no tempo</Text>
+            <Text style={styles.text}>{mensagem}</Text>
           </TouchableOpacity>
         </View>}
       </View>}
